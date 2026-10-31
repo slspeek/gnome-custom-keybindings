@@ -1,7 +1,7 @@
-{mkSettings}: {
+{ mkSettings }: {
   testEmpty = {
-    expr = mkSettings [];
-    expected = {};
+    expr = mkSettings [ ];
+    expected = { };
   };
 
   testOneBinding = {
