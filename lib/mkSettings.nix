@@ -1,5 +1,6 @@
 {inputs, ...}: let
-  mkSettings = lib: listOfCustomKeybindings: let
+  lib = inputs.nixpkgs.lib;
+  mkSettings = listOfCustomKeybindings: let
     path = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings";
     mkPath = id: "${path}/custom${toString id}";
   in
@@ -24,5 +25,5 @@
         ]
       );
 in {
-  flake.lib.mkSettings = mkSettings inputs.nixpkgs.lib;
+  flake.lib.mkSettings = mkSettings;
 }
