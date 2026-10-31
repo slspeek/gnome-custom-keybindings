@@ -14,16 +14,8 @@
       imports = [
         inputs.nix-unit.modules.flake.default
         ./modules/unit-tests.nix
+        ./lib/mkSettings.nix
       ];
       systems = ["x86_64-linux" "aarch64-linux"];
-
-      # Exporteer je library function
-      flake = {
-        lib = {
-          mkSettings = import ./lib/mkSettings.nix {lib = inputs.nixpkgs.lib;};
-        };
-      };
-
-      # Voeg de test toe aan de checks per systeem
     };
 }
