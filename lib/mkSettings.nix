@@ -1,5 +1,4 @@
-listOfCustomKeybindings: let
-  lib = import <nixpkgs/lib>;
+{lib}: listOfCustomKeybindings: let
   path = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings";
   mkPath = id: "${path}/custom${toString id}";
 in
