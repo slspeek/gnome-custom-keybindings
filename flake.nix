@@ -9,20 +9,8 @@
     nix-unit.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+    import-tree.url = "github:vic/import-tree";
   };
 
-  outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.nix-unit.modules.flake.default
-        ./modules/unit-tests.nix
-        ./lib/mkSettings.nix
-        ./modules/treefmt.nix
-      ];
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
