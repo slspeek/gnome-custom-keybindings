@@ -1,6 +1,6 @@
 { inputs, ... }: {
   imports = [ inputs.nix-unit.modules.flake.default ];
-  perSystem = _: {
+  perSystem = { pkgs, ... }: {
     nix-unit.inputs = {
       # NOTE: a `nixpkgs-lib` follows rule is currently required
       inherit (inputs)
@@ -14,8 +14,14 @@
     };
     # Tests specified here may refer to system-specific attributes that are
     # available in the `perSystem` context
-    nix-unit.tests = import ../../tests/test-mkSettings.nix {
-      mkSettings = inputs.self.lib.mkSettings;
+    nix-unit.tests = {
+      mkSettings = import ../../tests/test-mkSettings.nix {
+        mkSettings = inputs.self.lib.mkSettings;
+      };
+      gnomeCustomKeybindings = import ../../tests/test-gnomeCustomKeybindings.nix {
+        gnomeCustomKeybindings = inputs.self.homeManagerModules.gnomeCustomKeybindings;
+        inherit pkgs;
+      };
     };
   };
 }
